@@ -5,56 +5,56 @@ const server = fastGateway({
         
         {
             prefix:'v1/auth',
-            target:"http://localhost:2000",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2000",
             hooks:{   
             } 
         },
         {
 
             prefix:'v1/DID',
-            target: "http://localhost:2001",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2001",
             hooks:{
             }
         },
         {
             
             prefix:'v1/view/DID',
-            target: "http://localhost:2002",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2002",
             hooks:{
             }
         },
         {
             
             prefix:'v1/views/DID',
-            target: "http://localhost:2003",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2003",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Detail/DID',
-            target: "http://localhost:2004",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2004",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Commission/DID',
-            target: "http://localhost:2005",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2005",
             hooks:{
             }
         },
         {
             
             prefix:'v1/settings',
-            target: "http://localhost:2006",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2006",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Agnet',
-            target: "http://localhost:2007",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2007",
             hooks:{
             }
         }
