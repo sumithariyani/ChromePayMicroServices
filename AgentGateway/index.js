@@ -12,7 +12,7 @@ const server = fastGateway({
         {
 
             prefix:'v1/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2001",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2007",
             hooks:{
             }
         },
@@ -54,7 +54,7 @@ const server = fastGateway({
         {
             
             prefix:'v1/Agnet',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2007",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2001",
             hooks:{
             }
         }
