@@ -1,6 +1,6 @@
 const cutomerModel = require("../Models/customer")
 const Organisation = require("../Models/Organisation")
-const agent_Commission = require("../models/agentCommission")
+const agent_Commission = require("../../.././Agent/CreateDIDs/Models/agentCommission")
 const agent_Commission_His = require("../Models/AgentCommissinHistory")
 const temp_Cust = require("../Models/temp_Cust")
 const axios = require("axios")

@@ -30,4 +30,5 @@ mongoose.connect("mongodb+srv://satyamRandawa:Loveyam@cluster0.tfry3tr.mongodb.n
 app.listen(process.env.Port || 2001, function () {
     console.log('App running on port ' + (process.env.PORT || 2001))
 });
-            
+
+
