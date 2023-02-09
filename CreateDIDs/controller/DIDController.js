@@ -538,8 +538,6 @@ const Resend_otp = async (req, res) => {
     try {
 
         let phone = req.params.phone;
-
-
         if (!phone) {
             return res.status(200).send({ status: false, msg: "Please enter phone nummber" })
         }

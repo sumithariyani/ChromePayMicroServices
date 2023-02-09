@@ -343,9 +343,6 @@ const ForgotchangePass = async (req, res) => {
         if (!newpassword) {
             return res.status(200).send({ status: false, msg: "Please enter new Password" })
         }
-
-        
-
         if (!confirmPassword) {
             return res.status(200).send({ status: false, msg: "Please enter confirm password" })
         }
