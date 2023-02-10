@@ -57,6 +57,13 @@ const server = fastGateway({
             target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2007",
             hooks:{
             }
+        },
+        {
+
+            prefix: 'v1/AgencyBanking',
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2008",
+            hooks: {
+            }
         }
     ]
 });

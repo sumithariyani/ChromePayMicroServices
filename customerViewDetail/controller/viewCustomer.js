@@ -202,7 +202,6 @@ const send_cust_otp_data_view = async (req, res) => {
         }
         let OTP = 100000 + Math.floor(Math.random() * 900000);
         let find_customer = await customerModel.findOneAndUpdate({ phone: phoneNo }, { cust_view_OTP: OTP }, { new: true })
-
         console.log("View_UPdate", find_customer)
         if (!find_customer) {
             return res.status(200).send({ status: false, msg: "Customer not found" })
