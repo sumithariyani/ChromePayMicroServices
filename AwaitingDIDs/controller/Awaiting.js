@@ -1,4 +1,10 @@
 const cutomerModel = require('../Models/customer')
+const transectionModel = require("../Models/transaction")
+const Loan_applay_customer = require("../models/Loan_apllied_by")
+const License_fee = require("../models/org_LicensesFees")
+const org_Licenses = require("../Models/OrgLicenses")
+
+
 
 
 
@@ -134,4 +140,36 @@ const AgentAwaiting = async (req, res) => {
 }
 
 
-module.exports = {AgentAwaiting}
+const Agent_dash_main = async (req, res) => {
+    try {
+        const agentID = req.agentId;
+        const orgId = req.orgId;
+        let finduser = await cutomerModel.find({ createdBY: agentID }).sort({ createdAt: -1 }).limit(5);
+        let findTrans = await transectionModel.find().limit(5).sort({ createdAt: -1 })
+        let findNoOfuser = await cutomerModel.find({ createdBY: agentID }).count()
+        let findLicenseFees = await License_fee.findOne({ OrganisationID: orgId }).select({ recuuringFees: 1, perLicenseFee: 1 });
+        let findLoanApplication = await Loan_applay_customer.find({ agentID: agentID }).count();
+        let findCust = await cutomerModel.find({ organisation: agentID, isDeleted: 0 })
+        let totalCust = findCust.length;
+        let findorg = await org_Licenses.findOne({ OrganisationID: orgId })
+        console.log("findorg", findorg)
+        let totalLicense = findorg.totalLicenses
+        let remaning_Licenses = totalLicense - totalCust
+
+        return res.status(200).send({ status: true, findNoOfuser, findLicenseFees, findLoanApplication, totalCust, remaning_Licenses, finduser, findTrans })
+    } catch (error) {
+        // let obj = {
+        //     IP: ip.address(),
+        //     description: error,
+        //     api: "organization get Employee Roles",
+        //     apiUrl: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3000/get_employee_roles/:employeeID"
+        // }
+        // let create = await orgBadLogs.create(obj)
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.message })
+    }
+}
+
+
+
+module.exports = { AgentAwaiting, Agent_dash_main }
