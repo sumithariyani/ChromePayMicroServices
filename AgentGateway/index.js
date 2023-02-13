@@ -19,7 +19,7 @@ const server = fastGateway({
         {
             
             prefix:'v1/view/DID',
-            target: "http://localhost:2002",
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2002",
             hooks:{
             }
         },
