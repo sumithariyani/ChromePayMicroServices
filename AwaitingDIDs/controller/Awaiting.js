@@ -19,7 +19,7 @@ const AgentAwaiting = async (req, res) => {
 
 
         let countpages = await cutomerModel.find({ createdBY: agentID, isDeleted: 0 }).sort({ createdAt: -1 })
-        let totlaRow = countpages.length    
+        let totlaRow = countpages.length
         if (!agentID) {
             return res.status(200).send({ status: false, msg: "Please enter agnet ID" })
         }
@@ -152,11 +152,20 @@ const Agent_dash_main = async (req, res) => {
         let findCust = await cutomerModel.find({ organisation: agentID, isDeleted: 0 })
         let totalCust = findCust.length;
         let findorg = await org_Licenses.findOne({ OrganisationID: orgId })
+        let totalTrans = await cutomerModel.find({ createdBY: agentID }).distinct('_id')
+        let ToatlTrans = await transectionModel.find({ senderID: totalTrans, sendingAmount: { $sum: 'sendingAmount' } })
+            // {
+            //     $group:
+            //         { _id: null, sendingAmount: { $sum: "$sendingAmount" } }
+
+            // }
+
+
         console.log("findorg", findorg)
         let totalLicense = findorg.totalLicenses
         let remaning_Licenses = totalLicense - totalCust
 
-        return res.status(200).send({ status: true, findNoOfuser, findLicenseFees, findLoanApplication, totalCust, remaning_Licenses, finduser, findTrans })
+        return res.status(200).send({ status: true, findNoOfuser, findLicenseFees, findLoanApplication, totalCust, remaning_Licenses, finduser, findTrans, ToatlTrans })
     } catch (error) {
         // let obj = {
         //     IP: ip.address(),
