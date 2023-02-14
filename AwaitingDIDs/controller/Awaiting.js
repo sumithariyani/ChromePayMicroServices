@@ -153,19 +153,26 @@ const Agent_dash_main = async (req, res) => {
         let totalCust = findCust.length;
         let findorg = await org_Licenses.findOne({ OrganisationID: orgId })
         let totalTrans = await cutomerModel.find({ createdBY: agentID }).distinct('_id')
-        let ToatlTrans = await transectionModel.find({ senderID: totalTrans, sendingAmount: { $sum: 'sendingAmount' } })
-            // {
-            //     $group:
-            //         { _id: null, sendingAmount: { $sum: "$sendingAmount" } }
+        let ToatlTrans = await transectionModel.find({ senderID: totalTrans })
+        var sending = 0
+        var recive = 0
 
-            // }
+
+        for (let i of ToatlTrans) {
+            sending += i.sendingAmount
+        }
+        for (let i of ToatlTrans) {
+            recive += i.receiverAmount
+        }
+
+        let amount = sending + recive
 
 
         console.log("findorg", findorg)
         let totalLicense = findorg.totalLicenses
         let remaning_Licenses = totalLicense - totalCust
 
-        return res.status(200).send({ status: true, findNoOfuser, findLicenseFees, findLoanApplication, totalCust, remaning_Licenses, finduser, findTrans, ToatlTrans })
+        return res.status(200).send({ status: true, findNoOfuser, findLicenseFees, findLoanApplication, totalCust, remaning_Licenses, totalTrasections: amount, finduser, findTrans })
     } catch (error) {
         // let obj = {
         //     IP: ip.address(),
