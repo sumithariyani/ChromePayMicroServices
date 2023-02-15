@@ -478,7 +478,7 @@ const Cust_Linked_Srevice_send_OTP = async (req, res) => {
 const Cust_Linked_Srevice = async (req, res) => {
     try {
         const cust_phone = req.body.Phone;
-        const orgID = req.body.OrgID;
+        const orgID = req.orgId;
         const otp = req.body.otp;
 
         if (!orgID) {
