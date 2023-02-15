@@ -2,6 +2,8 @@ const cutomerModel = require("../Models/customer")
 const Organisation = require("../Models/Organisation")
 const agent_Commission = require("../Models/agentCommission")
 const agent_Commission_His = require("../Models/AgentCommissinHistory")
+const customer_logs = require("../models/Customer_logs")
+
 const temp_Cust = require("../Models/temp_Cust")
 const axios = require("axios")
 const { uploadFile } = require("../aws/aws.js");
@@ -423,17 +425,15 @@ const new_verify_customer = async (req, res) => {
 const Cust_Linked_Srevice_send_OTP = async (req, res) => {
     try {
 
-        const cust_phone = req.body.Phone;
-        console.log("cust_phone", cust_phone)
-        let trim = cust_phone.replaceAll(' ', '')
-        let remove_character = trim.replace('-', '')
-        let convert_Number = parseInt(remove_character)
+        console.log("12313")
+        const DIDref = req.body.DIDref;
 
-        if (!cust_phone) {
-            return res.status(200).send({ status: false, msg: "Please enter user phone number" })
+
+        if (!DIDref) {
+            return res.status(200).send({ status: false, msg: "Please enter DID refrence" })
         }
 
-        let check_cust = await cutomerModel.findOne({ phone: convert_Number })
+        let check_cust = await cutomerModel.findOne({ digitalrefID: DIDref })
 
         if (!check_cust) {
             return res.status(200).send({ status: false, msg: "customer not regiater please register first" })
@@ -445,7 +445,7 @@ const Cust_Linked_Srevice_send_OTP = async (req, res) => {
 
         const send_mobile_otp = async (req, res) => {
 
-            let mobile = convert_Number;
+            let mobile = check_cust.phone;
             let otp = OTP;
 
             let url = `http://sms.bulksmsind.in/v2/sendSMS?username=d49games&message=Dear+user+your+registration+OTP+for+D49+is+${otp}+GLDCRW&sendername=GLDCRW&smstype=TRANS&numbers=${mobile}&apikey=b1b6190c-c609-4add-b03d-ab3a22e9d635&peid=1701165034632151350&%20templateid=1707165155715063574`;
@@ -462,7 +462,7 @@ const Cust_Linked_Srevice_send_OTP = async (req, res) => {
 
         send_mobile_otp();
 
-        let update_OTP = await cutomerModel.findOneAndUpdate({ phone: convert_Number }, { Linekd_Service_OTP: OTP })
+        let update_OTP = await cutomerModel.findOneAndUpdate({ digitalrefID: DIDref }, { Linekd_Service_OTP: OTP })
 
         return res.status(200).send({ status: true, msg: "OTP send succesfully" })
 
@@ -470,14 +470,14 @@ const Cust_Linked_Srevice_send_OTP = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(200).send({ satatus: false, msg: error.messege })
+        return res.status(200).send({ status: false, msg: error.messege })
     }
 }
 
 
 const Cust_Linked_Srevice = async (req, res) => {
     try {
-        const cust_phone = req.body.Phone;
+        const DIDref = req.body.DIDref;
         const orgID = req.orgId;
         const otp = req.body.otp;
 
@@ -485,7 +485,7 @@ const Cust_Linked_Srevice = async (req, res) => {
             return res.status(200).send({ status: false, msg: "Please enter Organisation ID" })
         }
 
-        if (!cust_phone) {
+        if (!DIDref) {
             return res.status(200).send({ status: false, msg: "Please enter phone number" })
         }
 
@@ -497,7 +497,7 @@ const Cust_Linked_Srevice = async (req, res) => {
             return res.status(200).send({ statsu: false, msg: "Please enter OTP " })
         }
 
-        let verify_OTP = await cutomerModel.findOne({ phone: cust_phone })
+        let verify_OTP = await cutomerModel.findOne({ digitalrefID: DIDref })
         let all_organisations = verify_OTP.organisation
         let cust_ID = verify_OTP._id
 
@@ -509,9 +509,9 @@ const Cust_Linked_Srevice = async (req, res) => {
             return res.status(200).send({ status: false, msg: "Please enter Valid otp" })
         }
 
-        let update_OTP = await cutomerModel.findOneAndUpdate({ phone: cust_phone }, { $push: { "organisation": orgID } }, { new: true })
+        let update_OTP = await cutomerModel.findOneAndUpdate({ digitalrefID: DIDref }, { $push: { "organisation": orgID } }, { new: true })
 
-        let update_OTP_Again = await cutomerModel.findOneAndUpdate({ phone: cust_phone }, { Linekd_Service_OTP: "000@$#&*" })
+        let update_OTP_Again = await cutomerModel.findOneAndUpdate({ digitalrefID: DIDref }, { Linekd_Service_OTP: "000@$#&*" })
 
         let obj = {
             customer_ID: cust_ID,
@@ -529,7 +529,7 @@ const Cust_Linked_Srevice = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(200).send({ satatus: false, msg: error.messege })
+        return res.status(200).send({ status: false, msg: error.messege })
     }
 }
 
