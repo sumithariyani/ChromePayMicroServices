@@ -2,7 +2,7 @@ const cutomerModel = require("../Models/customer")
 const Organisation = require("../Models/Organisation")
 const agent_Commission = require("../Models/agentCommission")
 const agent_Commission_His = require("../Models/AgentCommissinHistory")
-const customer_logs = require("../models/Customer_logs")
+const customer_logs = require("../Models/Customer_logs")
 
 const temp_Cust = require("../Models/temp_Cust")
 const axios = require("axios")
