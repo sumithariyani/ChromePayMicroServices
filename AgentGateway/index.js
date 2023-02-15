@@ -1,5 +1,5 @@
 const fastGateway = require('fast-gateway')
-
+//ghh
 const server = fastGateway({
     routes :[
         
