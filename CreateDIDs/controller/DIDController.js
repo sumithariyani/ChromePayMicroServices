@@ -20,22 +20,20 @@ const createCustomerByOrg1 = async (req, res, next) => {
         let ID = req.agentId;
         let orgID = req.orgId;
 
-        console.log(ID)
-        console.log(orgID)
-
         const { IDphoto, fullname, dateOfBirth, phone, city, age, email, gender, nationality, professoin, address, organisation, status, Latitude,
             Longitude, nextFOKinName, nextFOKniPhone } = data
 
-
+        //console.log()
+        let trim = phone.replaceAll(' ', '')
+        let remove_character = trim.replace('-', '')
+        let convert_Number = parseInt(remove_character)
 
 
         let findcust = await cutomerModel.find({ createdBY: orgID })
         let findOrg = await Organisation.findOne({ _id: orgID })
 
-
         if (findOrg.totlaLicense <= findcust.length) {
             return res.status(200).send({ status: false, msg: "You organization not have enough licenses to add DID, Please contact admin to update yout licenses" })
-
         }
 
         if (!fullname) {
@@ -53,14 +51,12 @@ const createCustomerByOrg1 = async (req, res, next) => {
             return res.status(200).send({ status: false, msg: "Please enter phone" })
         }
 
-
         if (phone.length < 5) {
             return res.status(200).send({ status: false, msg: "Please enter valid phone" })
-
         }
 
 
-        let checkPhone = await cutomerModel.findOne({ phone: data.phone })
+        let checkPhone = await cutomerModel.findOne({ phone: convert_Number })
 
 
 
@@ -83,7 +79,7 @@ const createCustomerByOrg1 = async (req, res, next) => {
 
         let collection = {
             IDphoto: IDphoto, fullname: fullname,
-            dateOfBirth: dateOfBirth, phone: phone, city: city, age: age,
+            dateOfBirth: dateOfBirth, phone: convert_Number, city: city, age: age,
             email: email, gender: gender, nationality: nationality,
             professoin: professoin, address: address, Latitude: Latitude,
             Longitude: Longitude, organisation: orgID,
@@ -148,10 +144,16 @@ const createCustomerByOrg2 = async (req, res) => {
     try {
 
         let data = req.body;
-        let phone_number = req.body.phone
+        let phone_number1 = req.body.phone
         let email = req.body.email
         let age = req.body.age
         let city = req.body.city
+
+        let trim = phone_number1.replaceAll(' ', '')
+        let remove_character = trim.replace('-', '')
+        let phone_number = parseInt(remove_character)
+
+        console.log("phone, ", phone_number)
 
 
 
@@ -267,7 +269,6 @@ const new_verify_customer = async (req, res) => {
         if (!phoneNo1) {
             return res.status(200).send({ Status: false, msg: "Please enter Phone No." })
         }
-
         var findCust = await temp_Cust.findOne({ phone: phoneNo1 })
 
         // console.log("findCust", findCust)
@@ -480,14 +481,11 @@ const Cust_Linked_Srevice = async (req, res) => {
         const DIDref = req.body.DIDref;
         const orgID = req.orgId;
         const otp = req.body.otp;
-
         if (!orgID) {
-            return res.status(200).send({ status: false, msg: "Please enter Organisation ID" })
-        }
+            return res.status(200).send({ status: false, msg: "Please enter Organisation ID" })}
 
         if (!DIDref) {
-            return res.status(200).send({ status: false, msg: "Please enter phone number" })
-        }
+            return res.status(200).send({ status: false, msg: "Please enter phone number" })}
 
         let find_org = await Organisation.findOne({ _id: orgID })
 

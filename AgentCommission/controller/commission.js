@@ -8,6 +8,8 @@ const commissionlist = async (req, res) => {
     try {
 
         const agentID = req.agentId ;
+        const data = req.body;
+        const { toDate, fromDate } = data
         console.log("123123132")
 
         if (!agentID) {
@@ -32,7 +34,7 @@ const commissionlist = async (req, res) => {
 
         //-----------------------------------------------------------------
 
-        if (Object.keys(req.body).length <= 1) {
+        if (!toDate.length && !fromDate.length) {
             let countpages1 = await agent_Commission_His.find({ agentID: agentID }).sort({ createdAt: 1 })
             let totalRaow1 = countpages1.length;
 
