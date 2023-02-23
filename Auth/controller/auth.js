@@ -40,8 +40,6 @@ const agent_login_new = async (req, res) => {
             let token = jwt.sign({ custID, cust_email }, 'GDHSFVHDF785DF1234DGFVDHF456354R')
 
             return res.status(200).send({ status: true, Login_status: "customer", msg: "Login sucessfully", token, custID })
-
-
         }
 
         if ((/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(username)) {
@@ -238,8 +236,6 @@ const forgotpassword = async (req, res) => {
 
         const email = req.body.email;
         console.log(email)
-
-
         let cheackEmail = await agentModel.findOne({ email: email })
 
         if (!cheackEmail) {
@@ -276,8 +272,6 @@ const forgotpassword = async (req, res) => {
                     return info.messageId;
                 }
             });
-
-
 
         }
         sentEmail();

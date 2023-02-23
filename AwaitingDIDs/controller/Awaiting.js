@@ -28,10 +28,10 @@ const AgentAwaiting = async (req, res) => {
             return res.status(200).send({ status: false, msg: "not getting valid agentID" })
         }
 
-        let pageNO = req.body.page;
-        if (pageNO == 0) {
-            pageNO = 1
-        }
+            let pageNO = req.body.page;
+            if (pageNO == 0) {
+                pageNO = 1
+            }
 
         console.log("Pagbe_NO", pageNO)
         const { page = pageNO, limit = 10 } = req.query;
