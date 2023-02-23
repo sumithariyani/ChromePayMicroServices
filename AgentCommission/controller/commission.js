@@ -35,6 +35,7 @@ const commissionlist = async (req, res) => {
         //-----------------------------------------------------------------
 
         if (!toDate.length && !fromDate.length) {
+            console.log("save date1213")
             let countpages1 = await agent_Commission_His.find({ agentID: agentID }).sort({ createdAt: 1 })
             let totalRaow1 = countpages1.length;
 
@@ -44,8 +45,8 @@ const commissionlist = async (req, res) => {
                 .exec();
 
             return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
-        } else if (req.body.fromDate) {
-
+        } else if (req.body.fromDate.length > 0) {
+            console.log("save date")
             let toDate = new Date(req.body.toDate).toISOString()
             let new_per = new Date()
             new_per.setDate(new_per.getDate() + 1);
