@@ -39,15 +39,37 @@ const commissionlist = async (req, res) => {
             let countpages1 = await agent_Commission_His.find({ agentID: agentID }).sort({ createdAt: 1 })
             let totalRaow1 = countpages1.length;
 
+
+
             let filter = await agent_Commission_His.find({ agentID: agentID }).sort({ createdAt: -1 })
                 .limit(limit * 1)
                 .skip((page - 1) * limit)
                 .exec();
 
-            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            let result = []
+            for (let i of filter) {
+
+
+                var Date1 = i.createdAt.toISOString().substring(0, 10)
+                var Time1 = i.createdAt.toISOString().substring(12, 19)
+
+                let obj1 = {
+                    _id: i._id,
+                    custPhoto: i.custPhoto,
+                    custName: i.custName,
+                    commission: i.commission,
+                    transactionId: 123168451,
+                    Date: Date1,
+                    Time: Time1
+                }
+                result.push(obj1)
+            }
+
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter: result })
         } else if (req.body.fromDate.length > 0) {
             console.log("save date")
             let toDate = new Date(req.body.toDate).toISOString()
+            console.log("1213212123123123")
             let new_per = new Date()
             new_per.setDate(new_per.getDate() + 1);
 
@@ -73,7 +95,25 @@ const commissionlist = async (req, res) => {
                 .skip((page - 1) * limit)
                 .exec();
             let totlaRow = filter.length;
-            return res.status(200).send({ status: true, totlaRow: contRow, currenPage: parseInt(pageNO), filter })
+            let result = []
+            for (let i of filter) {
+
+
+                var Date1 = i.createdAt.toISOString().substring(0, 10)
+                var Time1 = i.createdAt.toISOString().substring(12, 19)
+
+                let obj1 = {
+                    _id: i._id,
+                    custPhoto: i.custPhoto,
+                    custName: i.custName,
+                    commission: i.commission,
+                    transactionId: 123168451,
+                    Date: Date1,
+                    Time: Time1
+                }
+                result.push(obj1)
+            }
+            return res.status(200).send({ status: true, totlaRow: contRow, currenPage: parseInt(pageNO), filter: result })
 
         }
 
