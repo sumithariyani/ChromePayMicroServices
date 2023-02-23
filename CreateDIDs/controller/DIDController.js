@@ -233,7 +233,7 @@ const createCustomerByOrg2 = async (req, res) => {
                 }
 
                 console.log("payload", payload)
-                let res = await axios.post('http://13.127.64.68:7008/api/mainnet/getUserData', payload);
+                let res = await axios.post('http://13.233.12.75:7008/api/mainnet/getUserData', payload);
                 //console.log(res, "123123")
                 let data1 = res.data;
 
@@ -283,7 +283,7 @@ const new_verify_customer = async (req, res) => {
         console.log("payload verify", payload)
 
 
-        const response = await axios.post('http://13.127.64.68:7008/api/mainnet/generate-digitalid', payload)
+        const response = await axios.post('http://13.233.12.75:7008/api/mainnet/generate-digitalid', payload)
 
         console.log("1")
         let data1 = response.data
