@@ -64,6 +64,13 @@ const server = fastGateway({
             target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2008",
             hooks: {
             }
+        },
+        {
+
+            prefix: 'v1/swegger',
+            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2009",
+            hooks: {
+            }
         }
     ]
 });
