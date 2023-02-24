@@ -76,21 +76,19 @@ const commissionlist = async (req, res) => {
             return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter: result })
         } else if (req.body.fromDate.length > 0) {
             console.log("save date")
-            let toDate = new Date(req.body.toDate).toISOString()
-            console.log("1213212123123123")
-            let new_per = new Date()
-            new_per.setDate(new_per.getDate() + 1);
+            var toDate1 = req.body.toDate
+            let date = parseInt(toDate1.slice(8, 10)) + 1
+            let year_month = toDate1.slice(0, 7)
+            let final_to_date = `${year_month}-${date}`
 
 
-            let date_num = Number(toDate)
-            console.log("check permisioin", new_per)
 
             let option = [
 
                 {
                     createdAt: {
                         $gte: new Date(req.body.fromDate).toISOString(),
-                        $lte: new_per.toISOString() 
+                        $lte: new Date(final_to_date).toISOString()
                     }
                 }
 
