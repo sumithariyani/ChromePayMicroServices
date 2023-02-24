@@ -23,6 +23,9 @@ const commissionHistory = new mongoose.Schema({
     },
     commissionID: {
         type: Schema.Types.ObjectId, ref: 'Agent_Commission'
+    },
+    transactionID: {
+        type: String
     }
 },{timestamps:true})
 

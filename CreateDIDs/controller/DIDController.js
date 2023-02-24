@@ -89,46 +89,9 @@ const createCustomerByOrg1 = async (req, res, next) => {
             digitalrefID: seq,
 
         }
-        let latestCommission = await agent_Commission.find({ agentID: ID })
-        let agent_Cmisn = latestCommission.slice(-1)[0]
+
         let create = await temp_Cust.create(collection)
 
-        if (!agent_Cmisn) {
-            return res.status(200).send({ status: false, msg: "Agent commisiion is missing" })
-        }
-
-
-        if (agent_Cmisn.type == 'Percentage') {
-
-            let amount = agent_Cmisn.Amount
-
-            let perAmount = (amount / 100 * 5000)
-
-            let obj = {
-                custPhoto: create.IDphoto,
-                agentName: agent_Cmisn.agentID.name,
-                agentID: agent_Cmisn.agentID,
-                custID: create._id,
-                custName: create.fullname,
-                commissionID: agent_Cmisn._id,
-                commission: perAmount
-
-            }
-
-            let createcomsn = await agent_Commission_His.create(obj)
-        } else if (agent_Cmisn.type == 'Flat Money') {
-
-            let amount = agent_Cmisn.Amount
-            let obj = {
-                custPhoto: create.IDphoto,
-                agentName: agent_Cmisn.agentID.name,
-                agentID: agent_Cmisn.agentID,
-                custID: create._id,
-                custName: create.fullname,
-                commission: amount
-            }
-            let createcomsn = await agent_Commission_His.create(obj)
-        }
         return res.status(201).send({ status: true, msg: "", data: create, })
     } catch (error) {
         console.log(error)
@@ -256,6 +219,52 @@ const createCustomerByOrg2 = async (req, res) => {
 }
 
 
+async function addCommission(agentID, custName, custID) {
+    let latestCommission = await agent_Commission.find({ agentID: agentID })
+    let agent_Cmisn = latestCommission.slice(-1)[0]
+
+
+    if (!agent_Cmisn) {
+        return res.status(200).send({ status: false, msg: "Agent commisiion is missing" })
+    }
+
+
+    if (agent_Cmisn.type == 'Percentage') {
+
+        let amount = agent_Cmisn.Amount
+
+        let perAmount = (amount / 100 * 5000)
+
+        let obj = {
+            custPhoto: "",
+            agentName: agent_Cmisn.agentID.name,
+            agentID: agent_Cmisn.agentID,
+            custID: custID,
+            custName: custName,
+            commissionID: agent_Cmisn._id,
+            commission: perAmount,
+            transactionID: (Math.floor(Math.random() * 1000000000) + 1000000000).toString().substring(),
+
+        }
+
+        let createcomsn = await agent_Commission_His.create(obj)
+    } else if (agent_Cmisn.type == 'Flat Money') {
+
+        let amount = agent_Cmisn.Amount
+        let obj = {
+            custPhoto: "",
+            agentName: agent_Cmisn.agentID.name,
+            agentID: agent_Cmisn.agentID,
+            custID: custID,
+            custName: custName,
+            commissionID: agent_Cmisn._id,
+            commission: amount,
+            transactionID: (Math.floor(Math.random() * 1000000000) + 1000000000).toString().substring(),
+
+        }
+        let createcomsn = await agent_Commission_His.create(obj)
+    }
+}
 
 
 const new_verify_customer = async (req, res) => {
@@ -273,7 +282,7 @@ const new_verify_customer = async (req, res) => {
 
         // console.log("findCust", findCust)
 
-
+        var agentId = req.agentId;
 
         let payload = {
             code: OTP,
@@ -367,7 +376,7 @@ const new_verify_customer = async (req, res) => {
                 });
             }
             await sentEmail();
-
+            await addCommission(agentId, findCust.fullname, create_cust._id)
             return res.status(200).send({ status: true, msg: "customer register " })
 
         }
@@ -392,6 +401,7 @@ const new_verify_customer = async (req, res) => {
         //---------------------------------------------------------------------------------------------------------------
         if (create_cust) {
             //let delete_cust = await temp_Cust.findOneAndDelete({ phone: phoneNo1 })
+            await addCommission(agentId, findCust.fullname, create_cust._id)
             return res.status(200).send({ status: false, msg: "customer register " })
         }
     } catch (error) {
@@ -409,12 +419,16 @@ const new_verify_customer = async (req, res) => {
                         let find3 = await cutomerModel.findOne({ phone: phoneNo1 })
                         if (find3) {
                             //let delete_cust = await temp_Cust.findOneAndDelete({ phone: phoneNo1 })
+                            await addCommission(agentId, findCust.fullname, create_cust._id)
                             return res.status(200).send({ status: true, msg: "customer register  succesfully" })
                         }
                     }
                 }
             } else {
                 // let delete_cust = await temp_Cust.findOneAndDelete({ phone: phoneNo1 })
+
+                await addCommission(agentId, "sourabh singh", '638455c05f12c279fe18e348')
+
                 return res.status(200).send({ status: false, msg: "Failed Please Try Again" })
 
             }
