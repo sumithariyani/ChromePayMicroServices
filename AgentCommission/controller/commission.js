@@ -49,9 +49,17 @@ const commissionlist = async (req, res) => {
             let result = []
             for (let i of filter) {
 
+                var hours = i.createdAt.getHours();
+                var minutes = i.createdAt.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                console.log(strTime)
 
                 var Date1 = i.createdAt.toISOString().substring(0, 10)
-                var Time1 = i.createdAt.toISOString().substring(12, 19)
+                // var Time1 = i.createdAt.toISOString().substring(12, 19)
 
                 let obj1 = {
                     _id: i._id,
@@ -60,7 +68,7 @@ const commissionlist = async (req, res) => {
                     commission: i.commission,
                     transactionId: 123168451,
                     Date: Date1,
-                    Time: i.createdAt
+                    Time: strTime
                 }
                 result.push(obj1)
             }
@@ -97,10 +105,17 @@ const commissionlist = async (req, res) => {
             let totlaRow = filter.length;
             let result = []
             for (let i of filter) {
-
+                var hours = i.createdAt.getHours();
+                var minutes = i.createdAt.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                console.log(strTime)
 
                 var Date1 = i.createdAt.toISOString().substring(0, 10)
-                var Time1 = i.createdAt.toISOString().substring(12, 19)
+                // var Time1 = i.createdAt.toISOString().substring(12, 19)
 
                 let obj1 = {
                     _id: i._id,
@@ -109,7 +124,7 @@ const commissionlist = async (req, res) => {
                     commission: i.commission,
                     transactionId: 123168451,
                     Date: Date1,
-                    Time: i.createdAt
+                    Time: strTime
                 }
                 result.push(obj1)
             }
