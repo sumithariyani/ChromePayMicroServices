@@ -59,8 +59,7 @@ const commissionlist = async (req, res) => {
                     custName: i.custName,
                     commission: i.commission,
                     transactionId: 123168451,
-                    Date: Date1,
-                    Time: Time1
+                    Time: i.createdAt
                 }
                 result.push(obj1)
             }
@@ -108,8 +107,7 @@ const commissionlist = async (req, res) => {
                     custName: i.custName,
                     commission: i.commission,
                     transactionId: 123168451,
-                    Date: Date1,
-                    Time: Time1
+                    Time: i.createdAt
                 }
                 result.push(obj1)
             }
