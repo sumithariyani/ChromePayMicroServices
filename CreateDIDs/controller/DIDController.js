@@ -427,7 +427,7 @@ const new_verify_customer = async (req, res) => {
             } else {
                 // let delete_cust = await temp_Cust.findOneAndDelete({ phone: phoneNo1 })
 
-                await addCommission(agentId, "sourabh singh", '638455c05f12c279fe18e348')
+
 
                 return res.status(200).send({ status: false, msg: "Failed Please Try Again" })
 
