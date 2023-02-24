@@ -23,7 +23,11 @@ const commissionHistory = new mongoose.Schema({
     },
     commissionID: {
         type: Schema.Types.ObjectId, ref: 'Agent_Commission'
+    },
+    transactionID: {
+        type: String
     }
+
 },{timestamps:true})
 
 module.exports = mongoose.model('Agent_Commission_His', commissionHistory)

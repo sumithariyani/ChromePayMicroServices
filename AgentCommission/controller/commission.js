@@ -53,7 +53,7 @@ const commissionlist = async (req, res) => {
                 var minutes = i.createdAt.getMinutes();
                 var ampm = hours >= 12 ? 'PM' : 'AM';
                 hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
+                hours = hours ? hours : 12; 
                 minutes = minutes < 10 ? '0' + minutes : minutes;
                 var strTime = hours + ':' + minutes + ' ' + ampm;
                 console.log(strTime)
@@ -66,7 +66,7 @@ const commissionlist = async (req, res) => {
                     custPhoto: i.custPhoto,
                     custName: i.custName,
                     commission: i.commission,
-                    transactionId: 123168451,
+                    transactionId: i.transactionID,
                     Date: Date1,
                     Time: strTime
                 }
@@ -122,7 +122,7 @@ const commissionlist = async (req, res) => {
                     custPhoto: i.custPhoto,
                     custName: i.custName,
                     commission: i.commission,
-                    transactionId: 123168451,
+                    transactionId: i.transactionID,
                     Date: Date1,
                     Time: strTime
                 }
