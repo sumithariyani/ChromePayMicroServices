@@ -1,8 +1,5 @@
 const cutomerModel = require("../Models/customer")
-const org_Licenses = require('../Models/OrgLicenses')
-const temp_Cust = require("../Models/temp_Cust")
 const orgBadLogs = require("../Models/OrgBadLogs")
-const axios = require("axios")
 const Delete_DID_Notes = require("../models/Delete_DID_Notes");
 const { uploadFile } = require("../aws/aws.js");
 
