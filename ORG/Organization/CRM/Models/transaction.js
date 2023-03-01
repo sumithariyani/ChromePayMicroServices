@@ -1,0 +1,59 @@
+const mongoose = require("mongoose")
+
+
+const transactionSchema = new mongoose.Schema({
+    transactionID: {
+        type: String
+    },
+
+    senderID: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'customer'
+    },
+
+    recieverID: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'customer'
+    },
+
+    transactionDate: {
+        type: Date
+    },
+    PCN: {
+        type: String
+    },
+    PayInCashier: {
+        type: String,
+
+    },
+    PayOutCashier: {
+        type: String,
+
+    },
+
+    senderName: {
+        type: String
+    },
+    beneficiaryName: {
+        type: String
+    },
+    sendingAmount: {
+        type: Number
+    },
+    receiverAmount: {
+        type: Number
+    },
+    Relationship: {
+        type: String
+    },
+    status: {
+        type: String,
+        enum: ["Confirmed", "Failed", "Pending"]
+    },
+    OrganisationID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Organisation",
+    }
+
+}, { timestamps: true })
+
+module.exports = mongoose.model('transaction', transactionSchema)
+

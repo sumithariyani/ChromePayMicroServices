@@ -25,7 +25,6 @@ const verifyOTP = async (req, res) => {
 
         let data = req.body;
         const { ID, OTP } = data
-
         if (!OTP) return res.status(200).send({ status: false, msg: 'Please enter otp' })
         if (!ID) return res.status(200).send({ status: false, msg: "Please enter phone DID number" })
         let findCust = await customerModel.findOne({ $or: [{ phone: ID }, { digitalrefID: ID }] }).select({ fullname: 1, IDphoto: 1, phone: 1, email: 1, digitalrefID: 1, cust_view_OTP: 1 })

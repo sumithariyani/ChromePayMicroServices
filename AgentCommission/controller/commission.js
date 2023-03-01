@@ -28,9 +28,9 @@ const commissionlist = async (req, res) => {
         }
         const { page = pageNO, limit = 10 } = req.query;
 
-        console.log(pageNO, "laskdjhflhjdgf lajsd dhgsf ")
+        // console.log(pageNO, "laskdjhflhjdgf lajsd dhgsf ")
 
-        console.log(typeof pageNO)
+        // console.log(typeof pageNO)
 
         //-----------------------------------------------------------------
 
@@ -56,7 +56,7 @@ const commissionlist = async (req, res) => {
                 hours = hours ? hours : 12; 
                 minutes = minutes < 10 ? '0' + minutes : minutes;
                 var strTime = hours + ':' + minutes + ' ' + ampm;
-                console.log(strTime)
+                // console.log(strTime)
 
                 var Date1 = i.createdAt.toISOString().substring(0, 10)
                 // var Time1 = i.createdAt.toISOString().substring(12, 19)
@@ -75,7 +75,7 @@ const commissionlist = async (req, res) => {
 
             return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter: result })
         } else if (req.body.fromDate.length > 0) {
-            console.log("save date")
+            // console.log("save date")
             var toDate1 = req.body.toDate
             let date = parseInt(toDate1.slice(8, 10)) + 1
             let year_month = toDate1.slice(0, 7)
@@ -91,7 +91,6 @@ const commissionlist = async (req, res) => {
                         $lte: new Date(final_to_date).toISOString()
                     }
                 }
-
             ]
 
             let countpages2 = await agent_Commission_His.find({ agentID: agentID, $or: option })
@@ -110,7 +109,7 @@ const commissionlist = async (req, res) => {
                 hours = hours ? hours : 12; // the hour '0' should be '12'
                 minutes = minutes < 10 ? '0' + minutes : minutes;
                 var strTime = hours + ':' + minutes + ' ' + ampm;
-                console.log(strTime)
+                // console.log(strTime)
 
                 var Date1 = i.createdAt.toISOString().substring(0, 10)
                 // var Time1 = i.createdAt.toISOString().substring(12, 19)
@@ -126,6 +125,8 @@ const commissionlist = async (req, res) => {
                 }
                 result.push(obj1)
             }
+
+            console.log(result)
             return res.status(200).send({ status: true, totlaRow: contRow, currenPage: parseInt(pageNO), filter: result })
 
         }

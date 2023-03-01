@@ -506,7 +506,7 @@ const Cust_Linked_Srevice = async (req, res) => {
         let org_name = find_org.name
 
         if (!otp) {
-            return res.status(200).send({ statsu: false, msg: "Please enter OTP " })
+            return res.status(200).send({ status: false, msg: "Please enter OTP " })
         }
 
         let verify_OTP = await cutomerModel.findOne({ digitalrefID: DIDref })
@@ -514,7 +514,7 @@ const Cust_Linked_Srevice = async (req, res) => {
         let cust_ID = verify_OTP._id
 
         if (all_organisations.includes(orgID)) {
-            return res.status(200).send({ statsu: false, msg: `This customer already linked with ${org_name} organisation` })
+            return res.status(200).send({ status: false, msg: `This customer already linked with ${org_name} organisation` })
         }
 
         if (verify_OTP.Linekd_Service_OTP != otp) {
