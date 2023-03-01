@@ -5,7 +5,7 @@
 
 const cutomerModel = require("../Models/customer")
 const orgBadLogs = require("../Models/OrgBadLogs")
-const Delete_DID_Notes = require("../models/Delete_DID_Notes");
+const Delete_DID_Notes = require("../Models/Delete_DID_Notes");
 const { uploadFile } = require("../aws/aws.js");
 
 const OrganisationCustomerTest = async (req, res) => {
