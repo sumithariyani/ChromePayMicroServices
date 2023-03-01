@@ -1,6 +1,6 @@
 const Organisation = require("../Models/Organisation")
 const organisationLog = require("../Models/Organisationlog")
-const BlockIP = require("../models/blockedIPs")
+const BlockIP = require("../Models/blockedIPs")
 const adminModel = require("../Models/AdminModel")
 const orgBadLogs = require("../Models/OrgBadLogs")
 const nodemailer = require('nodemailer')
