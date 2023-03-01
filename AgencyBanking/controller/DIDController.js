@@ -10,7 +10,7 @@ const sendAgencyOTP = async (req, res) => {
 
         if (!ID) return res.status(200).send({ status: false, msg: "Please enter phone DID number" })
         let OTP = 100000 + Math.floor(Math.random() * 900000);
-        let findCust = await customerModel.findOneAndUpdate({ $or: [{ phone: ID }, { digitalrefID: ID }] }, { cust_view_OTP: OTP })
+        let findCust = await customerModel.findOneAndUpdate({ $or: [{ phone: ID }, { digitalrefID: ID }] }, { cust_view_OTP: OTP }, { new: true })
         return res.status(200).send({ status: true, msg: "OTP send sucessfully" })
 
     } catch (error) {
