@@ -3,6 +3,7 @@ const Organisation = require("../Models/Organisation")
 const agent_Commission = require("../Models/agentCommission")
 const agent_Commission_His = require("../Models/AgentCommissinHistory")
 const customer_logs = require("../Models/Customer_logs")
+const UserFaceDataModel = require("../Models/userfaceData")
 
 const temp_Cust = require("../Models/temp_Cust")
 const axios = require("axios")
@@ -603,7 +604,23 @@ const globalImageUploader = async (req, res) => {
     }
 }
 
+const Store_Face_Data = async (req, res) => {
+    try {
+
+        let data = req.body.Face_data;
+        let obj = {
+            Face_data: data
+        }
+        let create = await UserFaceDataModel.create(obj)
+        return res.status(200).send({ status: true, msg: "Face data store sucessfully", data: create })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: "server error" })
+    }
+}
+
 module.exports = {
     createCustomerByOrg1, createCustomerByOrg2, new_verify_customer, Cust_Linked_Srevice_send_OTP, Cust_Linked_Srevice, Resend_otp, orgList
-    , globalImageUploader
+    , globalImageUploader, Store_Face_Data
 }
