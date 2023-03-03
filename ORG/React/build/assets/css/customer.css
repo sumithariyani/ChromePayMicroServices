@@ -1,0 +1,72 @@
+
+.my-box {
+    background: #efefff61;
+    margin-bottom: 22px;
+    padding: 19px 4px;
+    margin-top: 17px;
+    border-radius: 8px;
+}
+
+.showpcn
+{
+  display: block;
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+     background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: 50px;
+    left: -30px;
+    position: absolute;
+    right: 0;
+    top: 2px;
+    width: 100%;
+}
+
+.calendor {
+    position: absolute;
+    right: 26px;
+    bottom: 13px;
+    z-index: 1;
+    cursor: pointer;
+    font-size: 20px !important;
+}
+
+.inputdate input {
+    box-sizing: border-box;
+    outline: 0;
+    padding: .75rem;
+    position: relative;
+    width: 100%;
+}
+
+.btn-group, .btn-group-vertical {
+    margin-bottom: 1rem;
+  }
+
+.calendor-s {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    z-index: 1;
+    cursor: pointer;
+    font-size: 20px !important;
+}
+
+.right-mobile {
+    position: absolute;
+        z-index: 1;
+    cursor: pointer;
+    font-size: 20px !important;
+    right: 24px;
+    bottom: 14px;
+}
+  
+.card-transtion .nav-tabs .nav-link {
+    margin-bottom: -1px;
+    width: 20%;
+    color: #2b2525;
+}
