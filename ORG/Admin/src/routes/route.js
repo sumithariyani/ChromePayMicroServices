@@ -65,6 +65,11 @@ router.post("/recentAgentUser/:ID", adminController.recentAgentUser)
 router.post("/findSubAdmin", adminController.findSubAdmin)
 router.post("/subAdminRole/:adminID", adminController.subAdminRole)
 
+router.post("/AdminCust", adminController.AdminCust)
+router.post("/AdminOrg", adminController.AdminOrg)
+router.post("/AdminBlockedCust", adminController.AdminBlockedCust)
+router.post("/agentPerformanceReport/:agentID", adminController.agentPerformanceReport)
+
 
 //AdminOrganisation
 
@@ -95,6 +100,13 @@ router.post("/admin_read_notification/:ID", adminController.admin_read_notificat
 router.post("/get_admin_cust_data_graph", adminController.get_admin_cust_data_graph)
 router.post("/view_all_agents", adminController.view_all_agents)
 router.post("/fileUpload", adminController.globalImageUploader);
+router.get("/orgDashSection/:ID", MatchIPc.findBlockIPs, adminController.OrgDashSection)
+router.get("/get_org_transections_months/:orgID", adminController.get_org_transections_months)
+router.post("/get_transctions/:orgID", adminController.get_transctions)
+router.post("/OrgPerreort/:orgID", adminController.OrgPerreort)
+router.post("/org_add_cust/:orgID", adminController.org_add_cust)
+
+
 
 //---------------------------------------------Cust_Face_ditection---------------------------------------------------------------------------------
 

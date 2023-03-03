@@ -148,7 +148,7 @@ const adminAgent = async (req, res) => {
 
         let createCommissiin = await agent_Commission.create(obj1)
 
-        return res.status(200).send({ statuss: true, msg: "Agent register sucessfully", data: create })
+        return res.status(200).send({ status: true, msg: "Agent register sucessfully", data: create })
 
 
 
@@ -556,7 +556,7 @@ const AgentReport = async (req, res) => {
                 .skip((page - 1) * limit)
                 .exec();
 
-            return res.status(200).send({ statussss: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
         }
         else if (req.body.name || req.body.phone || req.body.agentCode || req.body.country) {
             let option = [{ name: req.body.name }, { phone: req.body.phone }, { country: req.body.country }, { agentCode: req.body.agentCode }]
@@ -1263,7 +1263,7 @@ const AdminCustomerList = async (req, res) => {
 
             }
 
-            return res.status(200).send({ statussss: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
         } else if (req.body.nationality || req.body.status) {
             let option = [{ nationality: req.body.nationality }, { status: req.body.status }]
 
@@ -2575,7 +2575,7 @@ const OrganisationList = async (req, res) => {
             // let obj = {
             //     name
             // }
-            return res.status(200).send({ statussss: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
         }
 
 
@@ -3693,7 +3693,7 @@ const admintransectionfillter = async (req, res) => {
                 .skip((page - 1) * limit)
                 .exec();
 
-            return res.status(200).send({ statussss: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
 
 
 
@@ -3897,7 +3897,7 @@ const chrome_pay_logs = async (req, res) => {
             if (filter.length == 0) {
                 return res.status(200).send({ status: false, msg: "No Customer Found" })
             }
-            return res.status(200).send({ statussss: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
+            return res.status(200).send({ status: true, totlaRow: totalRaow1, currenPage: parseInt(pageNO), filter })
         }
 
         let option = [{ IPAdress: IP }, { BY: Category }, { status: status }]
@@ -5867,6 +5867,488 @@ const Un_Block_Bank = async (req, res) => {
     }
 }
 
+const OrgDashSection = async (req, res) => {
+    try {
+
+        const organisationID = req.params.ID;
+        if (!organisationID) {
+            return res.status(200).send({ Status: false, msg: "Not Geting Organisation ID" })
+        }
+        let findName = await Organisation.findOne({ _id: organisationID })
+        let orgName = findName.name
+        let orgEmail = findName.email
+        let country = findName.country
+
+        let findUsers = await transectionModel.find({ OrganisationID: organisationID });
+
+
+
+
+        //-------------------------users-and-totaltransections---------------------------
+        let totalTransection = 0;
+        let count = 0
+        for (items of findUsers) {
+            totalTransection += items.sendingAmount
+            count++;
+        }
+
+        //--------------------------find-total-use--------------------------------------------
+
+        let finduser = await customerModel.find({ organisation: organisationID })
+
+        let numberOFUSer = 0;
+        for (Element of finduser) {
+            numberOFUSer++
+        }
+
+        let data = {
+            name: findName.name,
+            totlaLicense: findName.totlaLicense,
+            totalUser: numberOFUSer,
+            totalTransection: count,
+            email: orgEmail,
+            country: country,
+            image: findName.logo,
+            name: findName.name,
+            code: findName.code,
+            phone: findName.phoneNo,
+            country: findName.country,
+            city: findName.city,
+            postCode: findName.postCode,
+            joining_date: findName.createdAt,
+            address: findName.address,
+            totalTransection_amount: totalTransection
+        }
+
+        console.log("data", data)
+        return res.status(200).send({ status: true, data: data })
+    } catch (error) {
+
+        console.log(error)
+        return res.status(500).send({ status: false, msg: error })
+    }
+}
+
+
+const AdminCust = async (req, res) => {
+    try {
+
+        if (req.body.fromDate) {
+
+            let option = [
+                {
+                    createdAt: {
+                        $gte: new Date(req.body.fromDate).toISOString(),
+                        $lte: new Date(req.body.toDate).toISOString()
+                    }
+                }
+            ]
+
+            let findCust = await customerModel.find({ $or: option, isDeleted: 0 })
+
+            return res.status(200).send({ status: true, findCust })
+        } else {
+
+            let findCust = await customerModel.find({ isDeleted: 0 })
+
+            return res.status(200).send({ status: true, findCust })
+
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.messege })
+    }
+}
+
+//------------------------------------------------Organisation-List--------------------------------------------------------------------------
+
+
+const AdminOrg = async (req, res) => {
+    try {
+
+        if (req.body.fromDate) {
+
+            let option = [
+                {
+                    createdAt: {
+                        $gte: new Date(req.body.fromDate).toISOString(),
+                        $lte: new Date(req.body.toDate).toISOString()
+                    }
+                }
+            ]
+
+            let findOrg = await Organisation.find({ $or: option, isDeleted: 0 })
+
+            return res.status(200).send({ status: true, findOrg })
+        } else {
+
+            let findOrg = await Organisation.find({ isDeleted: 0 })
+
+            return res.status(200).send({ status: true, findOrg })
+
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.messege })
+    }
+}
+
+//----------------------------------------------Admin-blocked-customer-------------------------------------------------------------------------------------
+
+const AdminBlockedCust = async (req, res) => {
+    try {
+
+        if (req.body.fromDate) {
+
+            let option = [
+                {
+                    createdAt: {
+                        $gte: new Date(req.body.fromDate).toISOString(),
+                        $lte: new Date(req.body.toDate).toISOString()
+                    }
+                }
+            ]
+
+            let findCust = await customerModel.find({ $or: option, blocked: 1 })
+
+            return res.status(200).send({ status: true, findCust })
+        } else {
+
+            let findCust = await customerModel.find({ blocked: 1 })
+
+            return res.status(200).send({ status: true, findCust })
+
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.messege })
+    }
+}
+
+
+const get_org_transections_months = async (req, res) => {
+    try {
+
+        const OrgID = req.params.orgID
+
+        console.log(OrgID, "YTYUTY")
+
+        if (!OrgID) {
+            return res.status(200).send({ status: false, msg: "Please enter Organization ID" })
+        }
+
+        var fromDate = new Date(Date.now() - 334 * 24 * 60 * 60 * 1000);
+
+        January = 458507, February = 56900, March = 178555, April = 129000, May = 400000, June = 785000, July = 456000, August = 589000, September = 100000, October = 560047, November = 7854, December = 0
+
+
+        let find_Transac = await transectionModel.find({ OrganisationID: OrgID, $or: [{ "createdAt": { $gt: fromDate } }, { "createdAt": { $eq: '' } }] })
+
+        for (let i of find_Transac) {
+
+
+
+            if (i.createdAt.getMonth() + 1 == 1) {
+                January += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 2) {
+                February += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 3) {
+                March += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 4) {
+                April += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 5) {
+                May += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 6) {
+                June += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 7) {
+                July += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 8) {
+                August += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 9) {
+                September += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 10) {
+                October += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 11) {
+                November += i.sendingAmount
+            } else if (i.createdAt.getMonth() + 1 == 12) {
+                December += i.sendingAmount
+            }
+        }
+
+
+        let obj = {
+            January: January,
+            February: February,
+            March: March,
+            April: April,
+            May: May,
+            June: June,
+            July: July,
+            August: August,
+            September: September,
+            October: October,
+            November: November,
+            December: December
+        }
+
+        return res.status(200).send({ status: true, obj })
+
+
+    } catch (error) {
+        let obj = {
+            IP: ip.address(),
+            description: error,
+            api: "organization transection by months",
+            apiUrl: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3000/get_org_transections_months/:orgID"
+        }
+        let create = await orgBadLogs.create(obj)
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.message })
+    }
+}
+
+const get_transctions = async (req, res) => {
+    try {
+
+        const orgID = req.params.orgID;
+
+        let pageNO = req.body.page;
+        if (pageNO == 0) {
+            pageNO = 1
+        }
+        const { page = pageNO, limit = 5 } = req.query;
+
+
+        if (!orgID) {
+            return re.status(200).send({ status: false, msg: "Please enter organization ID" })
+        }
+
+        if (Object.keys(req.body).length <= 1) {
+            let findCust11 = await transectionModel.find({ OrganisationID: orgID })
+            let findCust = await transectionModel.find({ OrganisationID: orgID }).sort({ createdAt: -1 })
+                .limit(limit * 1)
+                .skip((page - 1) * limit)
+                .exec();
+            let contRow = findCust11.length
+            return res.status(200).send({ status: true, totlaRow: contRow, currenPage: parseInt(pageNO), findCust })
+
+        } else if (req.body.name) {
+
+            let option = [{ senderName: req.body.name }]
+
+
+            let findCust11 = await transectionModel.find({ $or: option, OrganisationID: orgID })
+            let findCust = await transectionModel.find({ $or: option, OrganisationID: orgID }).sort({ createdAt: -1 })
+                .limit(limit * 1)
+                .skip((page - 1) * limit)
+                .exec();
+            let contRow = findCust11.length
+            return res.status(200).send({ status: true, totlaRow: contRow, currenPage: parseInt(pageNO), findCust })
+        }
+
+    } catch (error) {
+        let obj = {
+            IP: ip.address(),
+            description: error,
+            api: "organization transection by months",
+            apiUrl: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3000/get_org_transections_months/:orgID"
+        }
+        let create = await orgBadLogs.create(obj)
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.message })
+    }
+}
+
+const OrgPerreort = async (req, res) => {
+    try {
+
+        const orgID = req.params.orgID;
+
+        if (!orgID) {
+            return res.status(200).send({ status: false, msg: "not getting organisation ID" })
+        }
+
+        if (orgID.length !== 24) {
+            return res.status(200).send({ status: false, msg: "not getting valid organisation ID" })
+
+        }
+
+
+
+        const LastMonthData = await customerModel.aggregate([
+            {
+                $match: {
+                    organisation: orgID,
+                    $expr: {
+                        $and: [
+                            {
+                                "$eq": [
+                                    {
+                                        $month: "$createdAt"
+                                    },
+                                    {
+                                        $month: {
+                                            $dateAdd: {
+                                                startDate: new Date(),
+                                                unit: "month",
+                                                amount: -1
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "$eq": [
+                                    {
+                                        $year: "$createdAt"
+
+                                    },
+
+                                    {
+                                        $year: {
+                                            $dateAdd: {
+                                                startDate: new Date(),
+                                                unit: "month",
+                                                amount: -1
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ])
+
+        const startOfCurrentMonth = new Date();
+        startOfCurrentMonth.setDate(1);
+
+        const startOfNextMonth = new Date();
+        startOfNextMonth.setDate(1);
+        startOfNextMonth.setMonth(startOfNextMonth.getMonth() + 1);
+
+        const Current_Month = await customerModel.find({
+            $and: [
+                {
+                    createdAt: {
+                        $gte: startOfCurrentMonth,
+                        $lt: startOfNextMonth
+                    },
+                    organisation: orgID
+                },
+            ],
+        }).count();
+
+
+
+        let Last_Month = LastMonthData.length
+        let perDayLastMonth = LastMonthData.length / 30
+        let currentDays = startOfNextMonth.getDay()
+        let perDayCurrMonth = Current_Month / currentDays
+
+        let Today_date = new Date()
+
+        if (perDayLastMonth > perDayCurrMonth) {
+            let Negetive = perDayLastMonth - perDayCurrMonth
+            let nextMonthTarget = Negetive * 30
+            let Target1 = nextMonthTarget + Last_Month
+            let Target = Math.ceil(Target1)
+            if (Target <= 0) {
+                Target = 100
+            }
+
+
+            return res.status(200).send({ status: true, Negetive, Current_Month, Target, Last_Month, Today_date })
+
+        } else {
+            let positive = perDayCurrMonth - perDayLastMonth
+            let nextMonthTarget = positive * 30
+            let Target1 = nextMonthTarget + Last_Month
+            let Target = Math.ceil(Target1)
+
+
+            return res.status(200).send({ status: true, positive, Current_Month, Target, Last_Month, Today_date })
+        }
+
+
+
+
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.messege })
+    }
+
+}
+
+
+const org_add_cust = async (req, res) => {
+    try {
+
+        const orgID = req.params.orgID;
+
+        if (!orgID) {
+            return res.status(200).send({ status: false, msg: "not getting organisation ID" })
+        }
+
+        if (orgID.length !== 24) {
+            return res.status(200).send({ status: false, msg: "not getting valid organisation ID" })
+        }
+
+
+        let currDate = new Date().getFullYear();
+
+        let finalYear = currDate - 1
+
+        let startTime = performance.now();
+        cutomerModel.find({ organisation: orgID, createdAt: { $gte: `${finalYear}-01-31T09:37:32.320+00:00`, $lte: '2022-11-05T07:33:37.480+00:00' } }).then(result => {
+            let newMonthsArray = new Array();
+            let monthsArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            let months = {};
+
+            for (let i = parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(5, 7)) - 1; i < 12; i++) {
+                let year = parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(0, 4)) - 1;
+                let month = parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(5, 7));
+                newMonth = monthsArray[i] + '-' + year;
+                newMonthsArray.push(newMonth);
+                months[newMonth] = 0;
+            }
+
+            for (let i = 0; i < parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(5, 7)); i++) {
+                let year = parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(0, 4));
+                let month = parseInt(`${currDate}-12-31T09:37:32.320+00:00`.substring(5, 7));
+                newMonth = monthsArray[i] + '-' + year;
+                newMonthsArray.push(newMonth);
+                months[newMonth] = 0;
+            }
+
+            for (i = 0; i < result.length; i++) {
+                let getDate = result[i].createdAt.toISOString();
+                let year = getDate.substring(0, 4);
+                let month = parseInt(getDate.substring(5, 7));
+                let monthName = monthsArray[month - 1];
+                let date = monthName + '-' + year;
+                let count = Number(months[date]) + 1;
+                months[date] = count;
+            }
+
+            let endTime = performance.now();
+            return res.status(200).send({ Data: months, 'Execution time': endTime - startTime + ' mls' });
+        });
+
+    } catch (error) {
+        let obj = {
+            IP: ip.address(),
+            description: error,
+            api: "Organization Customer Performance",
+            apiUrl: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3000/org_add_cust/:orgID"
+        }
+        let create = await orgBadLogs.create(obj)
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.message })
+    }
+}
+
 
 module.exports.createAdmin = createAdmin;
 module.exports.AdminLogin = AdminLogin;
@@ -5946,5 +6428,14 @@ module.exports.get_admin_cust_data_graph = get_admin_cust_data_graph
 module.exports.Sub_admin_profil = Sub_admin_profil
 module.exports.view_all_agents = view_all_agents
 module.exports.globalImageUploader = globalImageUploader 
+module.exports.OrgDashSection = OrgDashSection
+module.exports.AdminCust = AdminCust
+module.exports.AdminOrg = AdminOrg
+module.exports.AdminBlockedCust = AdminBlockedCust
+module.exports.agentPerformanceReport = agentPerformanceReport
+module.exports.get_org_transections_months = get_org_transections_months
+module.exports.get_transctions = get_transctions
+module.exports.OrgPerreort = OrgPerreort
+module.exports.org_add_cust = org_add_cust
 
 

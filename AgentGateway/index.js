@@ -160,7 +160,7 @@ const server = fastGateway({
         ,
         {
             prefix: 'v1/admin',
-            target: "http://localhost:3300",
+            target: "http://ec2-43-205-35-164.ap-south-1.compute.amazonaws.com:3300",
             hooks: {
             }
         }
