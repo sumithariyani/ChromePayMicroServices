@@ -5,70 +5,70 @@ const server = fastGateway({
         
         {
             prefix:'v1/auth',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2000",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2000",
             hooks:{   
             } 
         },
         {
             
             prefix:'v1/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2001",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2001",
             hooks:{
             }
         },
         {
             
             prefix:'v1/view/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2002",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2002",
             hooks:{
             }
         },
         {
             
             prefix:'v1/views/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2003",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2003",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Detail/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2004",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2004",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Commission/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2005",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2005",
             hooks:{
             }
         },
         {
             
             prefix:'v1/settings',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2006",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2006",
             hooks:{
             }
         },
         {
             
             prefix:'v1/Agnet',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2007",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2007",
             hooks:{
             }
         },
         {
 
             prefix: 'v1/AgencyBanking',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2008",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2008",
             hooks: {
             }
         },
         {
 
             prefix: 'v1/swegger',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:2009",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:2009",
             hooks: {
             }
         },
@@ -77,66 +77,66 @@ const server = fastGateway({
 
         {
             prefix: 'v1/org/dash',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3001",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3001",
             hooks: {
             }
         },
 
         {
             prefix: 'v1/org/auth',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3005",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3005",
             hooks: {
             }
         },
         {
             prefix: 'v1/org/DID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3002",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3002",
             hooks: {
             }
         }
         ,
         {
             prefix: 'v1/org/Cust',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3003",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3003",
             hooks: {
             }
         },
         {
             prefix: 'v1/org/ActiveDID',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3004",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3004",
             hooks: {
             }
         },
         {
             prefix: 'v1/org/CRM',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3007",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3007",
             hooks: {
             }
         },
         {
             prefix: 'v1/org/reports',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3006",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3006",
             hooks: {
             }
         }
         ,
         {
             prefix: 'v1/org/orgManage',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3008",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3008",
             hooks: {
             }
         }
         ,
         {
             prefix: 'v1/org/Agent',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3009",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3009",
             hooks: {
             }
         }
         ,
         {
             prefix: 'v1/org/Export',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3010",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3010",
             hooks: {
             }
         }
@@ -144,7 +144,7 @@ const server = fastGateway({
         ,
         {
             prefix: 'v1/org/settings',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3011",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3011",
             hooks: {
             }
         }
@@ -152,7 +152,7 @@ const server = fastGateway({
         ,
         {
             prefix: 'v1/org/logs',
-            target: "http://ec2-13-233-63-235.ap-south-1.compute.amazonaws.com:3012",
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3012",
             hooks: {
             }
         }

@@ -9,7 +9,19 @@ const temp_Cust = require("../Models/temp_Cust")
 const axios = require("axios")
 const { uploadFile } = require("../aws/aws.js");
 
+//-----------------------------------generate-Organisation-Password---------------------------------------------------------------------------------------
 
+const characters1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString1(length) {
+    let result = '';
+    const charactersLength = characters1.length;
+    for (let i = 0; i < length; i++) {
+        result += characters1.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
 
 
 
@@ -315,6 +327,8 @@ const new_verify_customer = async (req, res) => {
         }
 
 
+        console.log(newCust)
+
 
         let create_cust = await cutomerModel.create(newCust)
 
@@ -420,7 +434,7 @@ const new_verify_customer = async (req, res) => {
                         let find3 = await cutomerModel.findOne({ phone: phoneNo1 })
                         if (find3) {
                             //let delete_cust = await temp_Cust.findOneAndDelete({ phone: phoneNo1 })
-                            await addCommission(agentId, findCust.fullname, create_cust._id)
+                            await addCommission(agentId, findCust.fullname)
                             return res.status(200).send({ status: true, msg: "customer register  succesfully" })
                         }
                     }
