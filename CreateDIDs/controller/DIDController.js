@@ -634,7 +634,19 @@ const Store_Face_Data = async (req, res) => {
     }
 }
 
+const Get_Face_Data = async (req, res) => {
+    try {
+
+        let find = await UserFaceDataModel.find()
+        return res.status(200).send({ status: true, msg: "Face data store sucessfully", data: find })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: "server error" })
+    }
+}
+
 module.exports = {
     createCustomerByOrg1, createCustomerByOrg2, new_verify_customer, Cust_Linked_Srevice_send_OTP, Cust_Linked_Srevice, Resend_otp, orgList
-    , globalImageUploader, Store_Face_Data
+    , globalImageUploader, Store_Face_Data, Get_Face_Data
 }

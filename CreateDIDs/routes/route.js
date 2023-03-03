@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
     createCustomerByOrg1, createCustomerByOrg2, new_verify_customer, Cust_Linked_Srevice_send_OTP, Cust_Linked_Srevice, Resend_otp, orgList, globalImageUploader,
-    Store_Face_Data
+    Store_Face_Data, Get_Face_Data
 } = require('../controller/DIDController');
 
 
@@ -15,6 +15,7 @@ router.post("/Resend_otp/:phone", Resend_otp)
 router.get("/orgList", orgList)
 router.post("/ImageUploader",globalImageUploader)
 router.post("/Store_Face_Data",Store_Face_Data)
+router.post("/Get_Face_Data", Get_Face_Data)
 
 
 

@@ -156,6 +156,14 @@ const server = fastGateway({
             hooks: {
             }
         }
+
+        ,
+        {
+            prefix: 'v1/admin',
+            target: "http://ec2-13-234-31-92.ap-south-1.compute.amazonaws.com:3300",
+            hooks: {
+            }
+        }
     ]
 });
 
