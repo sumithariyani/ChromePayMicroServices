@@ -691,16 +691,16 @@ const get_agent_cut_month = async (req, res) => {
         let DaysData = Object.assign(days_Array[0], days_Array[1], days_Array[2], days_Array[3], days_Array[4], days_Array[5], days_Array[6], days_Array[7])
 
         if (Field == "Year") {
-            return res.status(200).send({ status: true, Year: obj1 })
+            return res.status(200).send({ status: true, obj: obj1 })
 
         } else if (Field == "Month") {
-            return res.status(200).send({ status: true, Month: obj })
+            return res.status(200).send({ status: true, obj: obj })
 
         } else if (Field == "Day") {
-            return res.status(200).send({ status: true, Day: DaysData })
+            return res.status(200).send({ status: true, obj: DaysData })
 
         } else {
-            return res.status(200).send({ status: true, Month: obj })
+            return res.status(200).send({ status: true, obj: obj })
 
         }
 
