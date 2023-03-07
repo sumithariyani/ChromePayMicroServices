@@ -2182,7 +2182,7 @@ const updateDigitalID = async (req, res) => {
                 const Ownwe_key = '0x12734821a5B2be1D204fEdb3e986a6d149772a6B'
 
                 var result11 = []
-                let result = await axios.get(`http://13.127.64.68:7008/api/mainnet/getDigitalIdOfOwner/${custOwnerKey}`)
+                let result = await axios.get(`http://13.233.12.75:7008/api/mainnet/getDigitalIdOfOwner/${custOwnerKey}`)
 
                     .catch((error) => {
                         let data = error.response.data
@@ -2956,7 +2956,7 @@ const createCustomerByAdmin = async (req, res, next) => {
             console.log("payload", payload)
 
 
-            let res = await axios.post('http://13.127.64.68:7008/api/mainnet/getUserData', payload);
+            let res = await axios.post('http://13.233.12.75:7008/api/mainnet/getUserData', payload);
             let data1 = res.data;
 
         }
