@@ -3,9 +3,9 @@ const orgBadLogs = require("../Models/OrgBadLogs")
 const customerModel = require("../Models/customer")
 const org_Licenses = require("../Models/OrgLicenses")
 const AgentModel = require("../Models/AgentModel")
-const Loan_applay_customer = require("../models/Loan_apllied_by")
-const transectionModel = require("../models/transaction");
-const License_fee = require("../models/org_LicensesFees")
+const Loan_applay_customer = require("../Models/Loan_apllied_by")
+const transectionModel = require("../Models/transaction");
+const License_fee = require("../Models/org_LicensesFees")
 const ip = require('ip')
 const moment = require('moment')
 
