@@ -582,7 +582,7 @@ const Resend_otp = async (req, res) => {
             }
 
 
-            let res = await axios.post('http://13.127.64.68:7008/api/mainnet/getUserData', payload);
+            let res = await axios.post('http://13.233.12.75:7008/api/mainnet/getUserData', payload);
             let data1 = res.data;
         }
         await doPostRequest();

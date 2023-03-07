@@ -84,7 +84,7 @@ const server = fastGateway({
 
         {
             prefix: 'v1/org/auth',
-            target: "http://localhost:3005",
+            target: "http://ec2-43-205-35-164.ap-south-1.compute.amazonaws.com:3005",
             hooks: {
             }
         },

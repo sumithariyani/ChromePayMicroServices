@@ -6,6 +6,7 @@ const Loan_applay_customer = require("../Models/Loan_apllied_by")
 const transectionModel = require("../Models/transaction");
 const organisationModel = require("../Models/OrganisationModel")
 const custBanks = require("../Models/customerBank")
+const customer_logs = require("../Models/Customer_logs")
 const axios = require('axios')
 const ip = require('ip')
 const mongoose = require('mongoose')
@@ -360,7 +361,7 @@ const updateDigitalID = async (req, res) => {
             try {
                 const Ownwe_key = '0x12734821a5B2be1D204fEdb3e986a6d149772a6B'
                 var result11 = []
-                let result = await axios.get(`http://13.127.64.68:7008/api/mainnet/getDigitalIdOfOwner/${custOwnerKey}`)
+                let result = await axios.get(`http://13.233.12.75:7008/api/mainnet/getDigitalIdOfOwner/${custOwnerKey}`)
                     .catch((error) => {
                         let data = error.response.data
                         result11.push(data)
@@ -414,5 +415,46 @@ const updateDigitalID = async (req, res) => {
 }
 
 
+const get_cust_logs = async (req, res) => {
+    try {
 
-module.exports = {create_employe, Org_pendingCust, customerVerify, Org_blockedIDS, UnsuspendCustomer, customerDetail, updateDigitalID}
+        const custID = req.params.custID;
+
+        if (!custID) {
+            return res.status(200).send({ status: false, msg: "Not getting customer ID" })
+        }
+
+        if (custID.length != 24) {
+            return res.status(200).send({ status: false, msg: "Not getting valid customer ID" })
+        }
+
+        const { page = 1, limit = 5 } = req.query;
+
+        if (Object.keys(req.body).length == 0) {
+            let filter = await customer_logs.find({ customer_ID: custID }).sort({ createdAt: -1 })
+                .limit(limit * 1)
+                .skip((1 - 1) * limit)
+                .exec();
+
+            return res.status(200).send({ statussss: true, filter })
+        }
+        let options = [{ field: req.body.field }, { status: req.body.status }]
+
+
+        let filter = await customer_logs.find({ $or: options, customer_ID: custID })
+            .sort({ createdAt: -1 })
+            .limit(limit * 1)
+            .skip((1 - 1) * limit)
+            .exec();
+
+        return res.status(200).send({ statussss: true, filter })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(200).send({ status: false, msg: error.message })
+    }
+}
+
+
+
+module.exports = {create_employe, Org_pendingCust, customerVerify, Org_blockedIDS, UnsuspendCustomer, customerDetail, updateDigitalID, get_cust_logs}
