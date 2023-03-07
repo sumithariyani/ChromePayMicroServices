@@ -35,7 +35,7 @@ const aget_logs = require("../models/AgentLogHis")
 const api_his = require("../models/apiHistory")
 const Lons_Model = require("../models/Loan_apllied_by")
 const moment = require("moment")
-const licenses_Model= require("../models/Loan_apllied_by")
+const licenses_Model = require("../models/OrgLicenses")
 const admin_agent = require("../models/adminAgent")
 
 
@@ -3587,6 +3587,7 @@ const admindash = async (req, res) => {
 
         let findorg = await Organisation.find()
         let find_licenses = await licenses_Model.find()
+        
 
         let sum1 = 0;
         for (let i of find_licenses) {
@@ -3708,9 +3709,6 @@ const admintransectionfillter = async (req, res) => {
                     }
                 }
             ]
-
-
-
 
             let countpages2 = await transactionModel.find({ $or: option })
             let contRow = countpages2.length
