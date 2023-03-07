@@ -549,7 +549,7 @@ const registerAdmin = async (req, res) => {
         let register_roles = await Adminroles.create(roles)
         console.log(create)
         if (create) {
-            return res.status(200).send({ status: false, msg: "Admin Register Sucessfully", create, register_roles })
+            return res.status(200).send({ status: true, msg: "Admin Register Sucessfully", create, register_roles })
         }
 
     } catch (error) {
